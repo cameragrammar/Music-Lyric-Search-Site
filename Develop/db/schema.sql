@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS music_lyrics_DB;
+CREATE DATABASE music_lyrics_DB;
