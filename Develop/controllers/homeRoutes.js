@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, artists, playlist, songs } = require('../models');
+const { User, artist, playlist, songs } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
     const userData = await User.findAll({
       include: [
         {
-          model: artists,
+          model: artist,
           attributes: ['name', 'image_url'],
         },
         {
@@ -41,9 +41,8 @@ router.get('/profile/:id', async (req, res) => {
   try {
     const userData = await User.findByPk(req.params.id, {
       include: [
-        { model: artists},
+        { model: artist},
         { model: playlist},
-        { model: saved_artists},
         { model: songs},
       ],
     });
@@ -65,7 +64,7 @@ router.get('/profile', withAuth, async (req, res) => {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
-      include: [{ model: Project }],
+      include: [{ model: Profile }],
     });
 
     const user = userData.get({ plain: true });
