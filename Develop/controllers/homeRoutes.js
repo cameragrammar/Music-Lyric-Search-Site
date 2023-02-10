@@ -12,16 +12,6 @@ router.get('/', async (req, res) => {
           attributes: ['name', 'image_url'],
         },
         {
-<<<<<<< HEAD
-          model: playlist,
-          attributes: ['name'],
-          include: [
-            {
-              model: songs,
-              attributes: ['title', 'artist'],
-            },
-          ],
-=======
             model: playlist,
             attributes: ['name'],
             include: [
@@ -30,7 +20,6 @@ router.get('/', async (req, res) => {
                     attributes: ['title', 'artist'],
                 },
             ],
->>>>>>> 8116500df9544e8531c3436b1b58da81bdf1c8b4
         },
       ],
     });
@@ -52,16 +41,9 @@ router.get('/profile/:id', async (req, res) => {
   try {
     const userData = await User.findByPk(req.params.id, {
       include: [
-<<<<<<< HEAD
-        { model: artists },
-        { model: playlist },
-        { model: saved_artists },
-        { model: songs },
-=======
         { model: Artist},
         { model: playlist},
         { model: Song},
->>>>>>> 8116500df9544e8531c3436b1b58da81bdf1c8b4
       ],
     });
 
