@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, artist, playlist, songs } = require('../models');
+const { User, Artist, playlist, Song } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
@@ -8,18 +8,29 @@ router.get('/', async (req, res) => {
     const userData = await User.findAll({
       include: [
         {
-          model: artist,
+          model: Artist,
           attributes: ['name', 'image_url'],
         },
         {
+<<<<<<< HEAD
+          model: playlist,
+          attributes: ['name'],
+          include: [
+            {
+              model: songs,
+              attributes: ['title', 'artist'],
+            },
+          ],
+=======
             model: playlist,
             attributes: ['name'],
             include: [
                 {
-                    model: songs,
+                    model: Song,
                     attributes: ['title', 'artist'],
                 },
             ],
+>>>>>>> 8116500df9544e8531c3436b1b58da81bdf1c8b4
         },
       ],
     });
@@ -28,9 +39,9 @@ router.get('/', async (req, res) => {
     const users = userData.map((user) => user.get({ plain: true }));
 
     // Pass serialized data and session flag into template
-    res.render('homepage', { 
-      users, 
-      logged_in: req.session.logged_in 
+    res.render('homepage', {
+      users,
+      logged_in: req.session.logged_in
     });
   } catch (err) {
     res.status(500).json(err);
@@ -41,9 +52,16 @@ router.get('/profile/:id', async (req, res) => {
   try {
     const userData = await User.findByPk(req.params.id, {
       include: [
-        { model: artist},
+<<<<<<< HEAD
+        { model: artists },
+        { model: playlist },
+        { model: saved_artists },
+        { model: songs },
+=======
+        { model: Artist},
         { model: playlist},
-        { model: songs},
+        { model: Song},
+>>>>>>> 8116500df9544e8531c3436b1b58da81bdf1c8b4
       ],
     });
 
