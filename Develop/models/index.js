@@ -1,7 +1,6 @@
 const user = require('./user');
 const playlist = require('./playlist');
 const song = require('./songs')
-const artist = require('./artists')
 
 // user & playlist
 user.hasMany(playlist, {
@@ -22,13 +21,4 @@ song.belongsTo(playlist, {
   foreignKey: 'playlist_id'
 });
 
-//playlist & artist
-playlist.hasMany(artist, {
-  foreignKey: 'playlist_id',
-});
-
-artist.belongsTo(playlist, {
-  foreignKey: 'playlist_id'
-});
-
-module.exports = { user, playlist };
+module.exports = { user, playlist, song };
