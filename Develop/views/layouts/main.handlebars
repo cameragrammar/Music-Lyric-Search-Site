@@ -13,7 +13,6 @@
   <div class="flex-column justify-space-around">
     <header class="display-flex justify-space-between align-center p-2">
       <h1>
-        <span role="img" aria-label="User Profile">🎵</span>
         <a href="/"></a>
       </h1>
       <nav>
@@ -24,26 +23,35 @@
                     Find Your Favorite Artists and Songs
                 </p>
                 <p class="search bar">
-                    <input class="input is-primary" type="text" placeholder="Search by Artist or Song">
+                <input class="input is-primary" type="text" placeholder="Search by Artist or Song">
                 </p>
+                {{#if logged_in}}
+                <a href="/profile">profile</a> |
+                <button class="no-button is-right is-success" id="logout">logout</button>
+                {{else}}
+                <a href="/login">login</a>
+                {{/if}}
               </div>
             </div>
+           
+          </nav>
           </section>
           <div class="columns">
-            <div class="column">
+            <div class="column is-narrow">
+              <div class="card is-success mt-6"> 
                 <aside class="menu">
                     <p class="menu-label">
-                      General
+                      Navigation
                     </p>
                     <ul class="menu-list">
                       <li><a>Playlist</a></li>
-                      <li><a>Customers</a></li>
+                      <li><a>Song 1</a></li>
+                      <li><a>Song 2</a></li>
+                      <li><a>Song 3</a></li>
+                      <li><a>Song 4</a></li>
                     </ul>
+                  </div>
                     
-                    <ul class="menu-list">
-                      </ul>
-                      </li>
-                    </ul>
                     
                   </aside>
             </div>
@@ -80,7 +88,7 @@
                         {{ Song Lyrics }}
                       </p>
                       <p class="subtitle">
-                        {{Artist Name}}
+                        {{ArtistName}}
                       </p>
                     </div>
                     <footer class="card-footer">
@@ -106,6 +114,15 @@
     <main class="container container-fluid mt-5">
       <!-- Render the sub layout -->
       {{{ body }}}
+      <script type="text/javascript">
+
+        const ArtistName = "<p> {{ArtistName}} </p>";
+
+        const template = Handlebars.compile();
+
+        const data = template({ArtistName: "Nirvana"})
+
+      </script>
     </main>
     <footer>
       
