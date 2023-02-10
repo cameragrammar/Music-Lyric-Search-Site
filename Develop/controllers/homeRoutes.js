@@ -12,14 +12,14 @@ router.get('/', async (req, res) => {
           attributes: ['name', 'image_url'],
         },
         {
-            model: playlist,
-            attributes: ['name'],
-            include: [
-                {
-                    model: songs,
-                    attributes: ['title', 'artist'],
-                },
-            ],
+          model: playlist,
+          attributes: ['name'],
+          include: [
+            {
+              model: songs,
+              attributes: ['title', 'artist'],
+            },
+          ],
         },
       ],
     });
@@ -28,9 +28,9 @@ router.get('/', async (req, res) => {
     const users = userData.map((user) => user.get({ plain: true }));
 
     // Pass serialized data and session flag into template
-    res.render('homepage', { 
-      users, 
-      logged_in: req.session.logged_in 
+    res.render('homepage', {
+      users,
+      logged_in: req.session.logged_in
     });
   } catch (err) {
     res.status(500).json(err);
@@ -41,10 +41,10 @@ router.get('/profile/:id', async (req, res) => {
   try {
     const userData = await User.findByPk(req.params.id, {
       include: [
-        { model: artists},
-        { model: playlist},
-        { model: saved_artists},
-        { model: songs},
+        { model: artists },
+        { model: playlist },
+        { model: saved_artists },
+        { model: songs },
       ],
     });
 
