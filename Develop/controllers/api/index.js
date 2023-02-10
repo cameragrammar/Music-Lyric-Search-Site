@@ -6,4 +6,3 @@ router.use('/user', userRoutes);
 router.use('/songs', songsRoutes);
 
 module.exports = router;
-
