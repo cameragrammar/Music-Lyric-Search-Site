@@ -39,7 +39,7 @@ router.post(`/`, withAuth, async (req, res) => {
 // Delete a song from the playlist
 router.delete(`/:id`, async (req, res) => {
     try {
-        const deleteSong = await songs.destroy({ where: { id: req.params.id } });
+        const deleteSong = await Songs.destroy({ where: { id: req.params.id } });
         if (deleteSong) {
             res.status(200).json({ message: 'Song deleted successfully'});
         } else {

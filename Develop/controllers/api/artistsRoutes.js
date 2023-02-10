@@ -29,9 +29,7 @@ router.get('/:id', async (req, res) => {
 // Add a new artist to the playlist
 router.post(`/`, withAuth, async (req, res) => {
     try {
-        const newArtist = await Artist.create({
-            ...req.body,
-        });
+        const newArtist = await Artist.create(req.body);
         res.status(200).json(newArtist);
     } catch (err) {
         res.status(400).json(err);
@@ -39,18 +37,17 @@ router.post(`/`, withAuth, async (req, res) => {
 });
 
 // Delete artist from the playlist
-router.delete(`/`, withAuth, async (req, res) => {
-    try {
-        const Artist = await Artist.findByPk(req.params.artist);
-     if (!Artist) {
-        res.status(404).json({ message: 'Artist not found' });
-        return;
+router.delete(`/:id`, withAuth, async (req, res) => {
+   try {
+    const deleteArtist = await Artist.destroy({ where: { id: req.params.id }});
+    if (deleteArtist) {
+        res.status(200).json({ message: `Artist removed` });
+    } else {
+        res.status(404).json({ message: `Artist not found` });
     }
-    const deletedArtist = await artist.destroy();
-    res.status(200).json(deletedArtist);
-    } catch (err) {
-        res.status(500).json(err);
-    }
+   } catch (err) {
+    res.status(500).json(err);
+   }
 });
 
 module.exports = router;
