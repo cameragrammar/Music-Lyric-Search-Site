@@ -16,7 +16,6 @@ playlist.belongsTo(user, {
 //playlist & song
 playlist.hasMany(song, {
   foreignKey: 'playlist_id',
-  onDelete: 'CASCADE'
 });
 
 song.belongsTo(playlist, {
@@ -26,7 +25,6 @@ song.belongsTo(playlist, {
 //playlist & artist
 playlist.hasMany(artist, {
   foreignKey: 'playlist_id',
-  onDelete: 'CASCADE'
 });
 
 artist.belongsTo(playlist, {
