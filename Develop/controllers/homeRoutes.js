@@ -12,11 +12,12 @@ router.get('/', async (req, res) => {
           attributes: ['name', 'image_url'],
         },
         {
+
           model: playlist,
           attributes: ['name'],
           include: [
             {
-              model: songs,
+              model: Song,
               attributes: ['title', 'artist'],
             },
           ],
@@ -41,10 +42,10 @@ router.get('/profile/:id', async (req, res) => {
   try {
     const userData = await User.findByPk(req.params.id, {
       include: [
-        { model: artists },
+
+        { model: Artist },
         { model: playlist },
-        { model: saved_artists },
-        { model: songs },
+        { model: Song },
       ],
     });
 
