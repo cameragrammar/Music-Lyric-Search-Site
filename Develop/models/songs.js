@@ -26,7 +26,6 @@ Song.init(
         image: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
         },
         url: {
             type: DataTypes.STRING,
