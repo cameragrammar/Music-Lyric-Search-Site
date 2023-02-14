@@ -1,5 +1,9 @@
 /* start of Header - 2 column layout with action buttons */
 
+body {
+    background-color: teal;
+}
+
 .bs_header_layout_3 .bs_logo {
     width: 100%;
     height: auto;
