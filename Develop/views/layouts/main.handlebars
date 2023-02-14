@@ -6,7 +6,7 @@
     <title>Find Your Favorite Artists and Songs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" type="text/css" href="/index.css">
+
 
 
     <!-- Bootstrap CDN -->
@@ -14,6 +14,7 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -22,7 +23,6 @@
 </head>
 
 <body>
-    
 
 
     <div class="integrated_header_layout3 position-relative">
@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="bs_header_btn_wrapper bs_signup_btn_blk">
                                     <a href="#" class="nav-item nav-link bg-primary text-white bs_signup_btn">Register
-                                        </a>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -55,25 +55,29 @@
         </header>
 
 
-     <h1 class="display-1 fw-bold lh-1 mb-3 text-white">Find your Favorite Artists and Songs </h1>
-                        <div class="col-lg-9 text-white">
-                            <p class="fs-4 bs_fw-300 text-white">All your favorite music lyrics
-                            </p>
+        <h1 class="display-1 fw-bold lh-1 mb-3 text-white">Find your Favorite Artists and Songs </h1>
+        <div class="col-lg-9 text-white">
+            <p class="fs-4 bs_fw-300 text-white">All your favorite music lyrics
+            </p>
+            <h1 class="display-1 fw-bold lh-1 mb-3 text-white">Find your Favorite Artists and Songs </h1>
+            <div class="col-lg-9 text-white">
+                <p class="fs-4 bs_fw-300 text-white">All your favorite music lyrics
+                </p>
 
-                            <form id="searchBar">
-                            <input type="text" name="searchArtist" class="form-control my-3" placeholder="Search for Artist or Song" aria-label="Username" aria-describedby="basic-addon1">
-                            
-                            </form>
-                            <ul>
-                            {{#each results as | artist | }}
-                            <li>{{artist.name}} </li>
-                            
-                            {{/each}} 
-                            </ul>
-                        </div>
-                    </div>
-       {{{body}}}             
-                       
+                <form id="searchBar">
+                    <input type="text" name="searchArtist" class="form-control my-3"
+                        placeholder="Search for Artist or Song" aria-label="Username" aria-describedby="basic-addon1">
+
+                </form>
+                <ul>
+                    {{#each results as | artist | }}
+                    <li>{{artist.name}} </li>
+
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+
 
 </body>
 
