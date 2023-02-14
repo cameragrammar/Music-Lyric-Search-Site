@@ -1,11 +1,9 @@
 const router = require('express').Router();
-const { User, Playlist, Song } = require('../models');
+const { User, Playlist, Songs } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
   try {
-    // cut sense were not loading any user data
-
     // Get all projects and JOIN with user data
     console.log(8)
     const userData = await User.findAll({
@@ -19,7 +17,8 @@ router.get('/', async (req, res) => {
           attributes: ['name'],
           include: [
             {
-              model: Song
+              model: Songs,
+              attributes: ['name'],
             },
           ],
         },
