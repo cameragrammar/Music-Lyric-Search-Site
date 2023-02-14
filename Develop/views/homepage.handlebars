@@ -8,9 +8,10 @@
                         placeholder="Search for Artist or Song" aria-label="Username" aria-describedby="basic-addon1">
 
                 </form>
-                <ul>
+                <ul class="list-group">
                     {{#each results as | artist | }}
-                    <li>{{artist.name}} </li>
+                    
+                    <button class="list-group-item artist-button"><p class="inline text-left">{{artist.name}}</p></button>
 
                     {{/each}}
                 </ul>
@@ -18,9 +19,19 @@
         </div>
 
 
+
+
  <div class="bs_hero-container bs_hero_layout_4">
             <div class="container col-xl-10 col-xxl-8 px-4 py-5">
                 <div class="row align-items-center g-lg-5 py-5">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src={{artist.image}} alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">{{artist.name}}</h5>
+                                <p class="card-text">{{artist.bio.summary}}</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
                     <div class="col-md-10 mx-auto col-lg-5">
                         <form class="p-4 p-md-5 border rounded-3 bg-light">
                             <div class="form-floating mb-3">

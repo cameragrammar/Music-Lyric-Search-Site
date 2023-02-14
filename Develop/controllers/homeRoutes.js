@@ -27,12 +27,34 @@ router.get('/', async (req, res) => {
 
     // Serialize data so the template can read it
     const users = userData.map((user) => user.get({ plain: true }));
-
-    // Pass serialized data and session flag into template
-    res.render('homepage', {
+    const context = {
       users,
       logged_in: req.session.logged_in
-    });
+    };
+
+    if (req.query.search) {
+      const response = await fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${req.query.search}&api_key=ec04df62f6ddb8b7af8a249b27cd35de&format=json`);
+      const data = await response.json();
+      //console.log(data.results.artistmatches);
+      context.results = data.results.artistmatches.artist.slice(0, 10);
+      }
+
+      if (req.query.artist) {
+        const response = await fetch(`http://ws.audioscrobbler.com//2.0/?method=artist.getinfo&artist=${req.query.artist}&api_key=ec04df62f6ddb8b7af8a249b27cd35de&format=json`);
+        const data = await response.json();
+        //console.log(data.results);
+        context.artist = {
+          ...data.artist,
+          image: data.artist.image[0]["#text"]
+      }
+        }
+    
+      res.render('homepage',
+        context
+      );
+    
+    // Pass serialized data and session flag into template
+
   } catch (err) {
     res.status(500).json(err);
     console.log(err)
@@ -81,24 +103,19 @@ router.get('/profile', withAuth, async (req, res) => {
   }
 });
 
-router.get('/login', async(req, res) => {
+router.get('/login', async (req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
     res.redirect('/profile');
     return;
   }
 
-  if(req.query.search) {
-    const response = await fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${req.query.search}&api_key=ec04df62f6ddb8b7af8a249b27cd35de&format=json`);
-    const data = await response.json();
-    console.log(data.results.artistmatches);
-    res.render('login', {results:data.results.artistmatches.artist.slice(0, 10)});
-  }
-  else {
-    res.render('login');
-  }
 
-  
+
+  res.render('login');
+
+
+
 });
 
 module.exports = router;
