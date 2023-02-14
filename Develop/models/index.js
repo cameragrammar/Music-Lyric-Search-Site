@@ -1,6 +1,6 @@
-const user = require('./user');
-const playlist = require('./playlist');
-const song = require('./songs')
+const user = require('./User');
+const playlist = require('./Playlist');
+const song = require('./Songs')
 
 // user & playlist
 user.hasMany(playlist, {
