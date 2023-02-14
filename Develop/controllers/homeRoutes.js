@@ -81,14 +81,24 @@ router.get('/profile', withAuth, async (req, res) => {
   }
 });
 
-router.get('/login', (req, res) => {
+router.get('/login', async(req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
     res.redirect('/profile');
     return;
   }
 
-  res.render('login');
+  if(req.query.search) {
+    const response = await fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${req.query.search}&api_key=ec04df62f6ddb8b7af8a249b27cd35de&format=json`);
+    const data = await response.json();
+    console.log(data.results.artistmatches);
+    res.render('login', {results:data.results.artistmatches.artist.slice(0, 10)});
+  }
+  else {
+    res.render('login');
+  }
+
+  
 });
 
 module.exports = router;
