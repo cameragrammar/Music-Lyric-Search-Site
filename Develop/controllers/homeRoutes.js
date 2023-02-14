@@ -5,19 +5,19 @@ const withAuth = require('../utils/auth');
 router.get('/', async (req, res) => {
   try {
     // Get all projects and JOIN with user data
-    const userData = await User.findAll({
+
+    const userData = await user.findAll({
       include: [
         // {
         //   model: Artist,
         //   attributes: ['name', 'image_url'],
         // },
         {
-
           model: playlist,
           attributes: ['name'],
           include: [
             {
-              model: Song,
+              model: song,
               attributes: ['name', 'artist'],
             },
           ],
@@ -35,6 +35,7 @@ router.get('/', async (req, res) => {
     });
   } catch (err) {
     res.status(500).json(err);
+    console.log(err)
   }
 });
 
