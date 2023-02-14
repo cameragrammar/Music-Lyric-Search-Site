@@ -6,9 +6,6 @@
     <title>Find Your Favorite Artists and Songs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
-
-
     <!-- Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -57,30 +54,7 @@
             </div>
         </header>
 
-
-        <h1 class="display-1 fw-bold lh-1 mb-3 text-white">Find your Favorite Artists and Songs </h1>
-        <div class="col-lg-9 text-white">
-            <p class="fs-4 bs_fw-300 text-white">All your favorite music lyrics
-            </p>
-            <h1 class="display-1 fw-bold lh-1 mb-3 text-white">Find your Favorite Artists and Songs </h1>
-            <div class="col-lg-9 text-white">
-                <p class="fs-4 bs_fw-300 text-white">All your favorite music lyrics
-                </p>
-
-                <form id="searchBar">
-                    <input type="text" name="searchArtist" class="form-control my-3"
-                        placeholder="Search for Artist or Song" aria-label="Username" aria-describedby="basic-addon1">
-
-                </form>
-                <ul>
-                    {{#each results as | artist | }}
-                    <li>{{artist.name}} </li>
-
-                    {{/each}}
-                </ul>
-            </div>
-        </div>
-
+{{{body}}}
 
 </body>
 

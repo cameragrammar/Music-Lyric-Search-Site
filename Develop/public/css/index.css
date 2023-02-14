@@ -4,6 +4,17 @@ body {
     background-color: teal;
 }
 
+/* .navbar { */
+    /* position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+  } */
+
+.display-1 {
+    margin-top: 50px;
+}
+
 .bs_header_layout_3 .bs_logo {
     width: 100%;
     height: auto;
