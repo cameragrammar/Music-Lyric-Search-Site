@@ -1,26 +1,45 @@
-<h1>
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi odio similique voluptatibus debitis veniam enim
-  nesciunt, minima dolorem voluptas eos reprehenderit, quasi minus! Rem explicabo sint in fugit, at voluptates.
-</h1>
+   <h1 class="display-1 fw-bold lh-1 mb-3 text-white">Find your Favorite Artists and Songs </h1>
+            <div class="col-lg-9 text-white">
+                <p class="fs-4 bs_fw-300 text-white">All your favorite music lyrics
+                </p>
 
-{{!-- {{#each song as |songs| }}
-<div class="row mb-4 project">
-  <div class="col-md-5">
-    <h2>
-      {{{get_emoji}}}
-      <a href="/project/{{project.id}}">{{project.name}}</a>
-    </h2>
-    <p>
-      <span for="img" aria-label="song note">🎵</span>
-      <span class="dollar-amount">{{format_amount project.needed_funding}}</span>
-      needed!s
-    </p>
-    <p>Created by {{project.user.name}} on {{format_date project.date_created}}</p>
-  </div>
-  <div class="col-md-7">
-    <p>
-      {{song}}
-    </p>
-  </div>
-</div>
-{{/each}} --}}
+                <form id="searchBar">
+                    <input type="text" name="searchArtist" class="form-control my-3"
+                        placeholder="Search for Artist or Song" aria-label="Username" aria-describedby="basic-addon1">
+
+                </form>
+                <ul>
+                    {{#each results as | artist | }}
+                    <li>{{artist.name}} </li>
+
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+
+
+ <div class="bs_hero-container bs_hero_layout_4">
+            <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+                <div class="row align-items-center g-lg-5 py-5">
+                    <div class="col-md-10 mx-auto col-lg-5">
+                        <form class="p-4 p-md-5 border rounded-3 bg-light">
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="hero-layout-4-email"
+                                    placeholder="name@example.com">
+                                <label for="hero-layout-4-email">Email address</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="hero-layout-4-Password"
+                                    placeholder="Password">
+                                <label for="hero-layout-4-Password">Password</label>
+                            </div>
+            
+                            <button type="button"
+                                    class="btn btn-outline-secondary btn-lg px-5 text-black">Sign In</button>
+                                <button type="button" 
+                                class="btn btn-primary btn-lg px-4  ">Register</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
