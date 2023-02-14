@@ -37,24 +37,14 @@
                             id="bs_integrated_header_3_navbar_collapse">
                             <div class="navbar-nav bs_menu_links">
                                 <a href="#" class="nav-item nav-link active">Home</a>
-                                <a href="#" class="nav-item nav-link">Artist</a>
-                                <a href="#" class="nav-item nav-link">Song</a>
-                                <div class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Top Rated</a>
-                                    <div class="dropdown-menu">
-                                        <a href="#" class="dropdown-item">Popular</a>
-                                        <a href="#" class="dropdown-item">classic</a>
-                                        <a href="#" class="dropdown-item">top 10</a>
-                                    </div>
-                                </div>
                             </div>
                             <div class="navbar-nav">
                                 <div class="bs_header_btn_wrapper bs_signin_btn_blk">
                                     <a href="#" class="nav-item nav-link bs_signin_btn">Sign In</a>
                                 </div>
                                 <div class="bs_header_btn_wrapper bs_signup_btn_blk">
-                                    <a href="#" class="nav-item nav-link bg-primary text-white bs_signup_btn">Sign
-                                        Up</a>
+                                    <a href="#" class="nav-item nav-link bg-primary text-white bs_signup_btn">Register
+                                        </a>
                                 </div>
                             </div>
                         </div>
@@ -63,64 +53,24 @@
             </div>
         </header>
 
-        <div class="bs_hero-container min-vh-30">
-            <div class="container col-xl-10 col-xxl-8 px-4 py-5">
-                <div class="row align-items-center g-lg-5 py-5">
-                    <div class="text-start text-lg-start">
-                        <h1 class="display-1 fw-bold lh-1 mb-3 text-white">Find your Favorite Artists and Songs </h1>
+     <h1 class="display-1 fw-bold lh-1 mb-3 text-white">Find your Favorite Artists and Songs </h1>
                         <div class="col-lg-9 text-white">
                             <p class="fs-4 bs_fw-300 text-white">All your favorite music lyrics
                             </p>
-                            <div class="d-grid gap-2 d-flex align-items-center">
-                                <button type="button"
-                                    class="btn btn-outline-secondary btn-lg px-4 me-md-2 text-white">Sign In</button>
-                                <button type="button" class="btn btn-primary btn-lg px-4">New User</button>
-                            </div>
+
+                            <form id="searchBar">
+                            <input type="text" name="searchArtist" class="form-control my-3" placeholder="Search for Artist or Song" aria-label="Username" aria-describedby="basic-addon1">
+                            
+                            </form>
+                            <ul>
+                            {{#each results as | artist | }}
+                            <li>{{artist.name}} </li>
+                            
+                            {{/each}} 
+                            </ul>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="bs_hero-container bs_hero_layout_4">
-        <div class="container col-xl-10 col-xxl-8 px-4 py-5">
-            <div class="row align-items-center g-lg-5 py-5">
-                <div class="col-lg-7 text-center text-lg-start">
-                    <h1 class="display-4 fw-bold lh-1 mb-3">Any Artist, Any Song </h1>
-                    <p class="col-lg-10 fs-4">Find all your lyrics.</p>
-                </div>
-                <div class="col-md-10 mx-auto col-lg-5">
-                    <form class="p-4 p-md-5 border rounded-3 bg-light">
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="hero-layout-4-email"
-                                placeholder="name@example.com">
-                            <label for="hero-layout-4-email">Email address</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="hero-layout-4-Password"
-                                placeholder="Password">
-                            <label for="hero-layout-4-Password">Password</label>
-                        </div>
-                        <div class="checkbox mb-3">
-                            <label>
-                                <input type="checkbox" value="remember-me"> Remember me
-                            </label>
-                        </div>
-                        <button type="button" class="btn btn-outline-secondary btn-lg px-5 text-black">Sign In</button>
-                        <button type="button" class="btn btn-primary btn-lg px-4  ">New User</button>
-                        <hr class="my-4">
-                        <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
+                       
 
 </body>
 
