@@ -1,16 +1,44 @@
-   <h1 class="display-1 fw-bold lh-1 mb-3 text-white">Find your Favorite Artists and Songs </h1>
-            <div class="col-lg-9 text-white">
-                <p class="fs-4 bs_fw-300 text-white">All your favorite music lyrics
-                </p>
+<body>
+  <div class="container-fluid bg-forestgreen text-white p-3 text-shadow">
+    <h1 class="display-1 fw-bold lh-1 mb-3">Find your Favorite Artists and Songs </h1>
+    <div class="col-lg-9">
+      <p class="fs-4 bs_fw-300">All your favorite music lyrics</p>
+      <form id="searchBar">
+        <input type="text" name="searchArtist" class="form-control my-3" placeholder="Search for Artist or Song"
+          aria-label="Username" aria-describedby="basic-addon1">
+      </form>
+      <ul>
+        {{#each results as | artist | }}
+        <li>{{artist.name}}</li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
 
-                <form id="searchBar">
-                    <input type="text" name="searchArtist" class="form-control my-3"
-                        placeholder="Search for Artist or Song" aria-label="Username" aria-describedby="basic-addon1">
+  <div class="container rounded p-3 shadow bg-white text-center container-rounded">
+    <h3 class="mb-3">Sign In</h3>
+    <form>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password">
+      </div>
+      <div class="d-grid gap-2 mb-3">
+        <button type="submit" class="btn btn-primary">Sign In</button>
+      </div>
+    </form>
+    <p class="text-center">Don't have an account? <a href="#">Register</a></p>
+  </div>
+</body>
 
                 </form>
-                <ul>
+                <ul class="list-group">
                     {{#each results as | artist | }}
-                    <li>{{artist.name}} </li>
+                    
+                    <button class="list-group-item artist-button"><p class="inline text-left">{{artist.name}}</p></button>
 
                     {{/each}}
                 </ul>
@@ -18,9 +46,19 @@
         </div>
 
 
+
+
  <div class="bs_hero-container bs_hero_layout_4">
             <div class="container col-xl-10 col-xxl-8 px-4 py-5">
                 <div class="row align-items-center g-lg-5 py-5">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src={{artist.image}} alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">{{artist.name}}</h5>
+                                <p class="card-text">{{artist.bio.summary}}</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
                     <div class="col-md-10 mx-auto col-lg-5">
                         <form class="p-4 p-md-5 border rounded-3 bg-light">
                             <div class="form-floating mb-3">
@@ -43,3 +81,4 @@
                 </div>
             </div>
         </div>
+

@@ -26,13 +26,43 @@ router.get('/', async (req, res) => {
     });
     console.log(27)
     // Serialize data so the template can read it
+<<<<<<< HEAD
     const user = userData.map((user) => user.get({ plain: true }));
 
     // Pass serialized data and session flag into template
     res.render('homepage', {
       user,
+=======
+    const users = userData.map((user) => user.get({ plain: true }));
+    const context = {
+      users,
+>>>>>>> 074b8083abfb0243ec0610e8b93218598aaddcd0
       logged_in: req.session.logged_in
-    });
+    };
+
+    if (req.query.search) {
+      const response = await fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${req.query.search}&api_key=ec04df62f6ddb8b7af8a249b27cd35de&format=json`);
+      const data = await response.json();
+      //console.log(data.results.artistmatches);
+      context.results = data.results.artistmatches.artist.slice(0, 10);
+      }
+
+      if (req.query.artist) {
+        const response = await fetch(`http://ws.audioscrobbler.com//2.0/?method=artist.getinfo&artist=${req.query.artist}&api_key=ec04df62f6ddb8b7af8a249b27cd35de&format=json`);
+        const data = await response.json();
+        //console.log(data.results);
+        context.artist = {
+          ...data.artist,
+          image: data.artist.image[0]["#text"]
+      }
+        }
+    
+      res.render('homepage',
+        context
+      );
+    
+    // Pass serialized data and session flag into template
+
   } catch (err) {
     res.status(500).json(err);
     console.log(err)
@@ -88,6 +118,7 @@ router.get('/login', async (req, res) => {
     return;
   }
 
+<<<<<<< HEAD
   if (req.query.search) {
     const response = await fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${req.query.search}&api_key=ec04df62f6ddb8b7af8a249b27cd35de&format=json`);
     const data = await response.json();
@@ -99,6 +130,14 @@ router.get('/login', async (req, res) => {
   }
 
 
+=======
+
+
+  res.render('login');
+
+
+
+>>>>>>> 074b8083abfb0243ec0610e8b93218598aaddcd0
 });
 
 module.exports = router;
