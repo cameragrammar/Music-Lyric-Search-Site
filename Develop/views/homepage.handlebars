@@ -35,13 +35,23 @@
 </body>
 
                 </form>
+                <div class = "d-flex w-100">
                 <ul class="list-group">
-                    {{#each results as | artist | }}
+                    <h2 class = "list-group-item text-center font-weight-bold">Artist</h2>
+                    {{#each artists as | artist | }}
                     
                     <button class="list-group-item artist-button"><p class="inline text-left">{{artist.name}}</p></button>
 
                     {{/each}}
                 </ul>
+                <ul class="list-group">
+                    <h2 class = "list-group-item text-center font-weight-bold">Song Name</h2>
+                    {{#each tracks as | track | }}
+                    <button class="list-group-item track-button"><p class="inline text-left" data-artist={{track.artist}}>{{track.name}}</p></button>
+
+                    {{/each}}
+                </ul>
+                </div>
             </div>
         </div>
 
@@ -49,16 +59,30 @@
 
 
  <div class="bs_hero-container bs_hero_layout_4">
-            <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+            <div class="container col-xl-10 col-xxl-10 px-4 py-5">
                 <div class="row align-items-center g-lg-5 py-5">
+                    <div class="d-flex">
                     <div class="card" style="width: 18rem;">
                         <img class="card-img-top" src={{artist.image}} alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card-title">{{artist.name}}</h5>
                                 <p class="card-text">{{artist.bio.summary}}</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
+
+                                
+                            </div>
+                    </div>
+                    {{#if track}}
+                    <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                <h5 class="card-title">{{track.name}}</h5>
+                                <p class="card-text">{{track.playcount}}</p>
+                                <p class="card-text">{{track.summary}}</p>
+
+                                
+                                </div>
+                    </div>
+                    {{/if}} 
+                    </div>
                     <div class="col-md-10 mx-auto col-lg-5">
                         <form class="p-4 p-md-5 border rounded-3 bg-light">
                             <div class="form-floating mb-3">
