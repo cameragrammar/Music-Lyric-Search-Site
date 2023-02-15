@@ -54,12 +54,18 @@ router.get('/', async (req, res) => {
       context
     );
 
-    // Pass serialized data and session flag into template
-
-  } catch (err) {
-    res.status(500).json(err);
-    console.log(err)
   }
+
+    res.render('homepage',
+    context
+  );
+
+  // Pass serialized data and session flag into template
+
+} catch (err) {
+  res.status(500).json(err);
+  console.log(err)
+}
 });
 
 router.get('/profile/:id', async (req, res) => {
