@@ -1,10 +1,11 @@
-const signIn = async (event) => {
+const signInCall = async (event) => {
     // prevent default
     event.preventDefault()
-    console.log(4)
     // grab fields
-    const email = document.querySelector('.hero-layout-4-email').ariaValueMax.trim()
-    const password = document.querySelector('.hero-layout-4-Password').ariaValueMax.trim()
+    const email = document.getElementById('.email')
+    email.trim()
+    console.log(email)
+    const password = document.getElementById('.Password').trim()
     // verify all fields are full
     if (email && password) {
         // POST response
@@ -52,9 +53,11 @@ const signIn = async (event) => {
 //     }
 // }
 
-document
-    .querySelector('.signin')
-    .addEventListener('submit', signIn)
+// document
+//     .querySelector('.signin')
+//     .addEventListener('submit', signInCall)
+
 // document.querySelector('.signup').addEventListener('submit', signUp)
-console.log(document.querySelector('.signin'))
-console.log(3)
+
+let element = document.getElementById('.signin')
+signin.addEventListener('submit', signInCall)

@@ -54,18 +54,11 @@ router.get('/', async (req, res) => {
       context
     );
 
+  } catch (err) {
+    res.status(500).json(err);
+    console.log(err)
+    // Pass serialized data and session flag into template
   }
-
-    res.render('homepage',
-    context
-  );
-
-  // Pass serialized data and session flag into template
-
-} catch (err) {
-  res.status(500).json(err);
-  console.log(err)
-}
 });
 
 router.get('/profile/:id', async (req, res) => {
@@ -75,7 +68,7 @@ router.get('/profile/:id', async (req, res) => {
 
         // { model: Artist },
         { model: Playlist },
-        { model: Song },
+        { model: Songs },
       ],
     });
 
