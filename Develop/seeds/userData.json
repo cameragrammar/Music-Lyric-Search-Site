@@ -1,21 +1,17 @@
 [
     {
-        "username": "grey",
         "email": "IT@hotmail.com",
         "password": "password12345"
     },
     {
-        "username": "Hans",
         "email": "Corgi@gmail.com",
         "password": "password12345"
     },
     {
-        "username": "Nick",
         "email": "techno@aol.com",
         "password": "password12345"
     },
     {
-        "username": "Cameron",
         "email": "login@icloud.com",
         "password": "password12345"
     }

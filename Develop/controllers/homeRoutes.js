@@ -5,7 +5,7 @@ const withAuth = require('../utils/auth');
 router.get('/', async (req, res) => {
   try {
     // Get all projects and JOIN with user data
-    console.log(8)
+
     const userData = await User.findAll({
       include: [
         // {
@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
         },
       ],
     });
-    console.log(27)
+    // console.log(users)
     // Serialize data so the template can read it
 
     const users = userData.map((user) => user.get({ plain: true }));
@@ -87,10 +87,11 @@ router.get('/profile/:id', async (req, res) => {
 // Use withAuth middleware to prevent access to route
 router.get('/profile', withAuth, async (req, res) => {
   try {
+    console.log('/profile')
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
-      attributes: { exclude: ['password'] },
-      include: [{ model: Profile }],
+      attributes: { exclude: ['password'] }
+      // include: [{ model: User }],
     });
 
     const user = userData.get({ plain: true });
@@ -111,12 +112,7 @@ router.get('/login', async (req, res) => {
     return;
   }
 
-
-
-
-  res.render('login');
-
-
+  res.render('main');
 
 });
 
