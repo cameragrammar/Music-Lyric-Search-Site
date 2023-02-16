@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const { User, Playlist } = require('../../models');
-// const { User } = require('../../models');
 
 router.post('/', async (req, res) => {
   console.log('user /')
@@ -14,26 +13,6 @@ router.post('/', async (req, res) => {
       res.status(200).json(userData);
     });
 
-    // const filler = await User.findAll({
-    //   include: [
-    //     // {
-    //     //   model: Artist,
-    //     //   attributes: ['name', 'image_url'],
-    //     // },
-    //     {
-    //       model: Playlist,
-    //       attributes: ['name'],
-    //       include: [
-    //         {
-    //           model: Songs,
-    //           attributes: ['name'],
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // });
-
-    // console.log(filler)
   } catch (err) {
     res.status(400).json(err);
   }
@@ -84,7 +63,7 @@ router.get('/playlists', async (req, res) => {
       raw: true
     });
 
-    res.render('playlists', { playlists });
+    res.render('profile', { playlists });
 
   } catch (err) {
     res.status(500).json(err);
@@ -96,8 +75,10 @@ router.post('/playlists', async (req, res) => {
     const newPlaylist = await Playlist.create({
       name: req.body.name,
       user_id: req.session.user_id
-    });
 
+      
+    });
+    res.status(200).json(newPlaylist);
     res.redirect('/playlists');
 
   } catch (err) {

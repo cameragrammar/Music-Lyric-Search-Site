@@ -31,7 +31,7 @@
 </div>
 
 <!-- add a new playlist -->
-<form id="add-form" class="playlist-form" action="/users/playlists" method="POST">
+<form id="add-form" class="playlist-form" action="/user/playlists" method="POST">
   <div class="form-group">
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" class="form-control" required>
@@ -40,7 +40,7 @@
 </form>
 
 <!-- update an existing playlist -->
-<form id="update-form" class="playlist-form" action="/users/playlists/:id" method="PUT">
+<form id="update-form" class="playlist-form" action="/user/playlists/:id" method="PUT">
   <input type="hidden" id="selectedPlaylistId" name="id" value="">
   <div class="form-group">
     <label for="name">Name:</label>
