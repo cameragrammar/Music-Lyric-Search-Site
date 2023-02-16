@@ -15,22 +15,22 @@ Song.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        album: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        artist: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        image: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        url: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
+        // album: {
+        //     type: DataTypes.STRING,
+        //     allowNull: false,
+        // },
+        // artist: {
+        //     type: DataTypes.STRING,
+        //     allowNull: false,
+        // },
+        // image: {
+        //     type: DataTypes.STRING,
+        //     allowNull: false,
+        // },
+        // url: {
+        //     type: DataTypes.STRING,
+        //     allowNull: false,
+        // },
         playlist_id: {
             type: DataTypes.INTEGER,
             references: {

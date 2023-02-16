@@ -1,33 +1,34 @@
 const router = require('express').Router();
-const { user, playlist, song } = require('../models');
+const { User, Playlist, Songs } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
   try {
     // Get all projects and JOIN with user data
 
-    const userData = await user.findAll({
+    const userData = await User.findAll({
       include: [
         // {
         //   model: Artist,
         //   attributes: ['name', 'image_url'],
         // },
         {
-          model: playlist,
+          model: Playlist,
           attributes: ['name'],
           include: [
             {
-              model: song,
-              attributes: ['name', 'artist'],
+              model: Songs,
+              attributes: ['name'],
             },
           ],
         },
       ],
     });
-
+    // console.log(users)
     // Serialize data so the template can read it
+
     const users = userData.map((user) => user.get({ plain: true }));
-    console.log(users);
+    // console.log(users);
     const context = {
       users,
       logged_in: req.session.logged_in
@@ -36,10 +37,8 @@ router.get('/', async (req, res) => {
     if (req.query.search) {
       const response = await fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${req.query.search}&api_key=ec04df62f6ddb8b7af8a249b27cd35de&format=json`);
       const data = await response.json();
-      const response2 = await fetch(`http://ws.audioscrobbler.com/2.0/?method=track.search&track=${req.query.search}&api_key=ec04df62f6ddb8b7af8a249b27cd35de&format=json`);
-      const data2 = await response2.json();
-      context.artists = data.results.artistmatches.artist.slice(0, 10);
-      context.tracks = data2.results.trackmatches.track.slice(0, 10);
+      //console.log(data.results.artistmatches);
+      context.results = data.results.artistmatches.artist.slice(0, 10);
     }
 
     let artist = req.query.artist;
@@ -48,7 +47,6 @@ router.get('/', async (req, res) => {
       console.log(req.query.track);
       const response = await fetch(`http://ws.audioscrobbler.com/2.0/?method=track.getinfo&artist=${artist}&track=${req.query.track}&api_key=ec04df62f6ddb8b7af8a249b27cd35de&format=json`);
       const data = await response.json();
-      
       artist = data.track.artist.name;
       context.track = {
         name: data.track.name,
@@ -66,16 +64,15 @@ router.get('/', async (req, res) => {
         image: data.artist.image[0]["#text"]
       }
     }
-    console.log(context);
+    console.log('bro help');
     res.render('homepage',
       context
     );
 
-    // Pass serialized data and session flag into template
-
   } catch (err) {
     res.status(500).json(err);
     console.log(err)
+    // Pass serialized data and session flag into template
   }
 });
 
@@ -84,9 +81,9 @@ router.get('/profile/:id', async (req, res) => {
     const userData = await User.findByPk(req.params.id, {
       include: [
 
-        { model: Artist },
-        { model: playlist },
-        { model: Song },
+        // { model: Artist },
+        { model: Playlist },
+        { model: Songs },
       ],
     });
 
@@ -104,10 +101,11 @@ router.get('/profile/:id', async (req, res) => {
 // Use withAuth middleware to prevent access to route
 router.get('/profile', withAuth, async (req, res) => {
   try {
+    console.log('/profile')
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
-      attributes: { exclude: ['password'] },
-      include: [{ model: Profile }],
+      attributes: { exclude: ['password'] }
+      // include: [{ model: User }],
     });
 
     const user = userData.get({ plain: true });
@@ -122,17 +120,14 @@ router.get('/profile', withAuth, async (req, res) => {
 });
 
 router.get('/login', async (req, res) => {
+  console.log('home login')
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
     res.redirect('/profile');
     return;
   }
 
-
-
-  res.render('login');
-
-
+  res.render('main');
 
 });
 

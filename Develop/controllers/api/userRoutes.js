@@ -1,7 +1,46 @@
 const router = require('express').Router();
 const { User, Playlist } = require('../../models');
+// const { User } = require('../../models');
+
+router.post('/', async (req, res) => {
+  console.log('user /')
+  try {
+    const userData = await User.create(req.body);
+
+    req.session.save(() => {
+      req.session.user_id = userData.id;
+      req.session.logged_in = true;
+
+      res.status(200).json(userData);
+    });
+
+    // const filler = await User.findAll({
+    //   include: [
+    //     // {
+    //     //   model: Artist,
+    //     //   attributes: ['name', 'image_url'],
+    //     // },
+    //     {
+    //       model: Playlist,
+    //       attributes: ['name'],
+    //       include: [
+    //         {
+    //           model: Songs,
+    //           attributes: ['name'],
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // });
+
+    // console.log(filler)
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
 
 router.post('/login', async (req, res) => {
+  console.log('user login')
   try {
     const userData = await User.findOne({ where: { email: req.body.email } });
 
@@ -12,7 +51,7 @@ router.post('/login', async (req, res) => {
       return;
     }
 
-    const validPassword = await userData.checkPassword(req.body.password);
+    const validPassword = userData.checkPassword(req.body.password);
 
     if (!validPassword) {
       res.render('login', {
@@ -25,7 +64,7 @@ router.post('/login', async (req, res) => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
 
-      res.redirect('/playlists');
+      res.json({ user: userData, message: 'You are now logged in!' });
     });
 
   } catch (err) {

@@ -1,9 +1,13 @@
-const signIn = async (event) => {
+let form = document.querySelector('#userform')
+
+const signInCall = async (event) => {
     // prevent default
     event.preventDefault()
+
     // grab fields
-    const email = document.querySelector('.hero-layout-4-email').ariaValueMax.trim()
-    const password = document.querySelector('.hero-layout-4-Password').ariaValueMax.trim()
+    const email = document.getElementById('email').value
+    const password = document.getElementById('password').value
+
     // verify all fields are full
     if (email && password) {
         // POST response
@@ -14,7 +18,7 @@ const signIn = async (event) => {
         })
         // if ok doc.location.replace(somewhere)
         if (respond.ok) {
-            document.location.replace('/pofile')
+            document.location.replace('/profile')
         } else {
             alert(respond.statusText)
         }
@@ -24,24 +28,23 @@ const signIn = async (event) => {
     }
 }
 
-const signUp = async (event) => {
+const register = async (event) => {
     // prevent default
     event.preventDefault()
     // grab fields
-    const username = document.querySelector('.hero-layout-4-username').ariaValueMax.trim()
-    const email = document.querySelector('.hero-layout-4-email').ariaValueMax.trim()
-    const password = document.querySelector('.hero-layout-4-Password').ariaValueMax.trim()
+    const email = document.getElementById('email').value
+    const password = document.getElementById('password').value
     // verify all fields are full
-    if (username && email && password) {
+    if (email && password) {
         // POST response
-        const respond = await fetch('/api/user/login', { // change to something else?
+        const respond = await fetch('/api/user', { // change to something else?
             method: 'POST',
-            body: JSON.stringify({ username, email, password }),
+            body: JSON.stringify({ email, password }),
             headers: { 'Content-Type': 'application/json' },
         })
         // if ok doc.location.replace(somewhere)
         if (respond.ok) {
-            document.location.replace('/pofile') // where do we want to send the user
+            document.location.replace('/profile') // where do we want to send the user
         } else {
             alert(respond.statusText)
         }
@@ -51,5 +54,16 @@ const signUp = async (event) => {
     }
 }
 
-document.querySelector('.signin').addEventListener('submit', signIn)
-document.querySelector('.signup').addEventListener('submit', signUp)
+// document
+//     .querySelector('.signin')
+//     .addEventListener('submit', signInCall)
+
+// document.querySelector('.signup').addEventListener('submit', signUp)
+
+
+// form.addEventListener('submit', signInCall)
+
+// document
+//     .querySelector('#userform')
+//     .addEventListener('submit', signInCall);
+
