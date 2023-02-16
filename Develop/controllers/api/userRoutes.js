@@ -12,6 +12,27 @@ router.post('/', async (req, res) => {
 
       res.status(200).json(userData);
     });
+
+    // const filler = await User.findAll({
+    //   include: [
+    //     // {
+    //     //   model: Artist,
+    //     //   attributes: ['name', 'image_url'],
+    //     // },
+    //     {
+    //       model: Playlist,
+    //       attributes: ['name'],
+    //       include: [
+    //         {
+    //           model: Songs,
+    //           attributes: ['name'],
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // });
+
+    // console.log(filler)
   } catch (err) {
     res.status(400).json(err);
   }

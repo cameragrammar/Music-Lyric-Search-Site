@@ -1,11 +1,11 @@
 <body>
- 
+
 
 
 
   <div class="container rounded p-3 shadow bg-white text-center container-rounded">
     <h3 class="mb-3">Sign In</h3>
-    <form id="signin">
+    <form id="userform">
       <div class="mb-3">
         <label for="email" class="form-label">Email address</label>
         <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
@@ -15,8 +15,8 @@
         <input type="password" class="form-control" id="password">
       </div>
       <div class="d-grid gap-2 mb-3">
-        <button type="submit" class="btn btn-primary">Sign In</button>
-        <button type="submit" class="btn btn-primary">Register</button>
+        <button type="submit" onclick="signInCall(event)" class="btn btn-primary">SignIn</button>
+        <button type="submit" onclick="register(event)" class="btn btn-primary">Register</button>
       </div>
     </form>
   </div>
