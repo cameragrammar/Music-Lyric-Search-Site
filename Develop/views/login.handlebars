@@ -19,69 +19,69 @@
 </head>
 
 <body>
-
-<div class="d-flex w-100">
-    <ul class="list-group">
-      <h2 class="list-group-item text-center font-weight-bold">Playlists</h2>
-      {{#each users }}
-      {{#each playlists}}
-
-      <button class="list-group-item artist-button">
-        <p class="inline text-left">{{name}}</p>
+    <div class="d-flex w-100">
+  <ul class="list-group">
+    <h2 class="list-group-item text-center font-weight-bold">Playlists</h2>
+    {{#each playlists}}
+      <button class="list-group-item artist-button" onclick="selectPlaylist('{{this.id}}')">
+        <p class="inline text-left">{{this.name}}</p>
       </button>
-      {{/each}}
-      {{/each}}
-    </ul>
+    {{/each}}
+  </ul>
+</div>
+
+<!-- add a new playlist -->
+<form id="add-form" class="playlist-form" action="/users/playlists" method="POST">
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" class="form-control" required>
   </div>
+  <button type="submit" class="btn btn-primary">Add Playlist</button>
+</form>
 
+<!-- update an existing playlist -->
+<form id="update-form" class="playlist-form" action="/users/playlists/:id" method="PUT">
+  <input type="hidden" id="selectedPlaylistId" name="id" value="">
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" class="form-control" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Update Playlist</button>
+  <button type="button" class="btn btn-secondary" onclick="clearSelectedPlaylist()">Cancel</button>
+</form>
 
-<div class="integrated_header_layout3 position-relative">
-        <header class="site-header bs_nav-bgdark">
-            <div class="container">
-                <nav class="navbar navbar-expand-lg navbar-dark">
-                    <div class="container-fluid">    
-                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
-                            data-bs-target="#bs_integrated_header_3_navbar_collapse">
-                            <i class="bi bi-list bs_toggle_icon"></i>
-                        </button>
-                        <div class="collapse navbar-collapse justify-content-between"
-                            id="bs_integrated_header_3_navbar_collapse">
-                            <div class="navbar-nav bs_menu_links">
-                                <a href="#" class="nav-item nav-link active">Home</a>
-                                <a href="#" class="nav-item nav-link">Artist</a>
-                                <a href="#" class="nav-item nav-link">Song</a>
-                                <div class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Top Rated</a>
-                                    <div class="dropdown-menu">
-                                        <a href="#" class="dropdown-item">Popular</a>
-                                        <a href="#" class="dropdown-item">classic</a>
-                                        <a href="#" class="dropdown-item">top 10</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="navbar-nav">
-                                <div class="bs_header_btn_wrapper bs_signin_btn_blk">
-                                    <a href="#" class="nav-item nav-link bs_signin_btn">Sign In</a>
-                                </div>
-                                <div class="bs_header_btn_wrapper bs_signup_btn_blk">
-                                    <a href="#" class="nav-item nav-link bg-primary text-white bs_signup_btn">Sign
-                                        Up</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </header>
+<!-- script to select a playlist and show the update form -->
+<script>
+  function selectPlaylist(id) {
+    const playlists = {{json playlists}};
+    const selectedPlaylist = playlists.find(p => p.id === id);
+    document.getElementById('name').value = selectedPlaylist.name;
+    document.getElementById('selectedPlaylistId').value = selectedPlaylist.id;
+    document.getElementById('add-form').style.display = 'none';
+    document.getElementById('update-form').style.display = 'block';
+  }
 
+  function clearSelectedPlaylist() {
+    document.getElementById('name').value = '';
+    document.getElementById('selectedPlaylistId').value = '';
+    document.getElementById('update-form').style.display = 'none';
+    document.getElementById('add-form').style.display = 'block';
+  }
+</script>
 
-
-
-
-
-    
-    
+<!-- GET route for playlists -->
+{{#if playlists}}
+  <script>
+    const playlists = {{json playlists}};
+  </script>
+{{/if}}
 
 </body>
+
+
+
+
+
+
 
 </html>
