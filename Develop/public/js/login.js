@@ -3,8 +3,11 @@ const signInCall = async (event) => {
     event.preventDefault()
     // grab fields
     const email = document.getElementById('.email')
-    email.trim()
+
     console.log(email)
+    email.trim()
+    console.log(email.trim())
+
     const password = document.getElementById('.Password').trim()
     // verify all fields are full
     if (email && password) {

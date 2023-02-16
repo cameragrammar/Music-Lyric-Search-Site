@@ -105,6 +105,7 @@ router.get('/profile', withAuth, async (req, res) => {
 });
 
 router.get('/login', async (req, res) => {
+  console.log('home login')
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
     res.redirect('/profile');
