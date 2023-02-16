@@ -2,14 +2,19 @@ console.log(3)
 const signInCall = async (event) => {
     // prevent default
     event.preventDefault()
-    console.log(4)
+
+    const formData = new FormData(this.signin)
+    for (const pair of formData.entries()) {
+        console.log(pair)
+    }
     // grab fields
-    const email = document.getElementById('.email').ariaValueMax.trim()
+    const email = document.getElementById('email').value
     console.log(email)
-    const password = document.getElementById('.Password').ariaValueMax.trim()
+    const password = document.getElementById('password').value
     // verify all fields are full
     if (email && password) {
         // POST response
+        console.log('testing bitches')
         const respond = await fetch('/api/user/login', {
             method: 'POST',
             body: JSON.stringify({ email, password }),
@@ -17,7 +22,7 @@ const signInCall = async (event) => {
         })
         // if ok doc.location.replace(somewhere)
         if (respond.ok) {
-            document.location.replace('/pofile')
+            document.location.replace('/profile')
         } else {
             alert(respond.statusText)
         }
@@ -60,5 +65,5 @@ const signInCall = async (event) => {
 
 // document.querySelector('.signup').addEventListener('submit', signUp)
 
-let element = document.getElementById('.signin')
-signin.addEventListener('submit', signInCall)
+let form = document.getElementById('signin')
+form.addEventListener('submit', signInCall)

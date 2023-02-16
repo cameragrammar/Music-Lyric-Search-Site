@@ -27,9 +27,9 @@ function showTrack(event) {
     const artist = event.target.getAttribute("data-artist");
     const endIndex = window.location.href.indexOf("&");
     if (endIndex == -1)
-    window.location.href += (`&artist=${artist}&track=${track}`);
-    else 
-    window.location.href = window.location.href.slice(0, endIndex) + (`&artist=${artist}&track=${track}`);
+        window.location.href += (`&artist=${artist}&track=${track}`);
+    else
+        window.location.href = window.location.href.slice(0, endIndex) + (`&artist=${artist}&track=${track}`);
 }
 
 const trackButtons = document.getElementsByClassName("track-button");
@@ -37,3 +37,4 @@ for (const button of trackButtons) {
     button.addEventListener("click", showTrack);
 }
 
+<script src="/js/homepage.js" type="text/javascript"></script>

@@ -28,7 +28,7 @@ router.get('/', async (req, res) => {
     // Serialize data so the template can read it
 
     const users = userData.map((user) => user.get({ plain: true }));
-    console.log(users);
+    // console.log(users);
     const context = {
       users,
       logged_in: req.session.logged_in
@@ -64,7 +64,7 @@ router.get('/', async (req, res) => {
         image: data.artist.image[0]["#text"]
       }
     }
-    console.log(context);
+    console.log('bro help');
     res.render('homepage',
       context
     );
