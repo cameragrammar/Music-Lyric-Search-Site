@@ -20,6 +20,20 @@
 
 <body>
 
+<div class="d-flex w-100">
+    <ul class="list-group">
+      <h2 class="list-group-item text-center font-weight-bold">Playlists</h2>
+      {{#each users }}
+      {{#each playlists}}
+
+      <button class="list-group-item artist-button">
+        <p class="inline text-left">{{name}}</p>
+      </button>
+      {{/each}}
+      {{/each}}
+    </ul>
+  </div>
+
 
 <div class="integrated_header_layout3 position-relative">
         <header class="site-header bs_nav-bgdark">
