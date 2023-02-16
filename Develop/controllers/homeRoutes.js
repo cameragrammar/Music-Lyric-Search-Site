@@ -34,11 +34,15 @@ router.get('/', async (req, res) => {
       logged_in: req.session.logged_in
     };
 
+
+    
     if (req.query.search) {
       const response = await fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${req.query.search}&api_key=ec04df62f6ddb8b7af8a249b27cd35de&format=json`);
       const data = await response.json();
-      //console.log(data.results.artistmatches);
-      context.results = data.results.artistmatches.artist.slice(0, 10);
+      const response2 = await fetch(`http://ws.audioscrobbler.com/2.0/?method=track.search&track=${req.query.search}&api_key=ec04df62f6ddb8b7af8a249b27cd35de&format=json`);
+      const data2 = await response2.json();
+      context.artists = data.results.artistmatches.artist.slice(0, 10);
+      context.tracks = data2.results.trackmatches.track.slice(0, 10);
     }
 
     let artist = req.query.artist;
@@ -47,6 +51,7 @@ router.get('/', async (req, res) => {
       console.log(req.query.track);
       const response = await fetch(`http://ws.audioscrobbler.com/2.0/?method=track.getinfo&artist=${artist}&track=${req.query.track}&api_key=ec04df62f6ddb8b7af8a249b27cd35de&format=json`);
       const data = await response.json();
+
       artist = data.track.artist.name;
       context.track = {
         name: data.track.name,
@@ -131,7 +136,7 @@ router.get('/profile', withAuth, async (req, res) => {
   }
 });
 
-router.get('/login', async (req, res) => {
+router.get('/profile', async (req, res) => {
   console.log('home login')
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {

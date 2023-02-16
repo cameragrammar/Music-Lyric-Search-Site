@@ -33,10 +33,76 @@
 
 
 <!-- GET route for playlists -->
-{{!-- {{#if playlists}}
+{{#if playlists}}
 <script>
   const playlists = {{ json playlists }};
 </script>
-{{/if}} --}}
+{{/if}}
+
+
+
+<div class="col-lg-9 text-black">
+  <p class="fs-4 bs_fw-300 text-black">Search for your Favorite Music Artists
+  </p>
+
+  <form id="searchBar">
+    <input type="text" name="searchArtist" class="form-control my-3" placeholder="Search for Artist or Song"
+      aria-label="Username" aria-describedby="basic-addon1">
+
+  </form>
+  <ul class="list-group">
+    {{#each results as | artist | }}
+
+    <button class="list-group-item artist-button">
+      <p class="inline text-left">{{artist.name}}</p>
+    </button>
+
+    {{/each}}
+  </ul>
+  <div class="d-flex w-100">
+    <ul class="list-group">
+      <h2 class="list-group-item text-center font-weight-bold">Artist</h2>
+      {{#each artists as | artist | }}
+
+      <button class="list-group-item artist-button">
+        <p class="inline text-left">{{artist.name}}</p>
+      </button>
+
+      {{/each}}
+    </ul>
+    <ul class="list-group">
+      <h2 class="list-group-item text-center font-weight-bold">Song Name</h2>
+      {{#each tracks as | track | }}
+      <button class="list-group-item track-button">
+        <p class="inline text-left" data-artist={{track.artist}}>{{track.name}}</p>
+      </button>
+
+      {{/each}}
+    </ul>
+  </div>
+  <div class="row align-items-center g-lg-5 py-5">
+    <div class="d-flex">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src={{artist.image}} alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{artist.name}}</h5>
+          <p class="card-text">{{artist.bio.summary}}</p>
+        </div>
+      </div>
+
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{track.name}}</h5>
+          <p class="card-text">{{track.playcount}}</p>
+          <p class="card-text">{{track.summary}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
 
 <script src="/js/profile.js" type="text/javascript" defer></script>
