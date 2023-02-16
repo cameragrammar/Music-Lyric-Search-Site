@@ -1,14 +1,12 @@
+console.log(3)
 const signInCall = async (event) => {
     // prevent default
     event.preventDefault()
+    console.log(4)
     // grab fields
-    const email = document.getElementById('.email')
-
+    const email = document.getElementById('.email').ariaValueMax.trim()
     console.log(email)
-    email.trim()
-    console.log(email.trim())
-
-    const password = document.getElementById('.Password').trim()
+    const password = document.getElementById('.Password').ariaValueMax.trim()
     // verify all fields are full
     if (email && password) {
         // POST response
