@@ -101,13 +101,25 @@ router.get('/profile/:id', async (req, res) => {
 // Use withAuth middleware to prevent access to route
 router.get('/profile', withAuth, async (req, res) => {
   try {
-    console.log('/profile')
+    console.log('/profile ========================')
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
-      attributes: { exclude: ['password'] }
-      // include: [{ model: User }],
+      attributes: { exclude: ['password'] },
+      include: [
+        {
+          model: Playlist,
+          attributes: ['name'],
+          include: [
+            {
+              model: Songs,
+              attributes: ['name'],
+            },
+          ],
+        },
+      ],
     });
 
+    // console.log(userData)
     const user = userData.get({ plain: true });
 
     res.render('profile', {
@@ -127,7 +139,7 @@ router.get('/login', async (req, res) => {
     return;
   }
 
-  res.render('main');
+  res.render('homepage');
 
 });
 

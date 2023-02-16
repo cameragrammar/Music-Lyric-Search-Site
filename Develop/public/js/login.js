@@ -24,7 +24,7 @@ const signInCall = async (event) => {
         }
         // else error
     } else {
-        window.alert('your missing email or password')
+        alert('your missing email or password')
     }
 }
 
@@ -53,17 +53,3 @@ const register = async (event) => {
         window.alert('your missing email or password')
     }
 }
-
-// document
-//     .querySelector('.signin')
-//     .addEventListener('submit', signInCall)
-
-// document.querySelector('.signup').addEventListener('submit', signUp)
-
-
-// form.addEventListener('submit', signInCall)
-
-// document
-//     .querySelector('#userform')
-//     .addEventListener('submit', signInCall);
-

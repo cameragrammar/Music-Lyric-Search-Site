@@ -72,17 +72,19 @@ router.get('/playlists', async (req, res) => {
 
 router.post('/playlists', async (req, res) => {
   try {
+    console.log('/palyists ===========')
+    console.log(req.body.name)
     const newPlaylist = await Playlist.create({
-      name: req.body.name,
+      name: req.body,
       user_id: req.session.user_id
-
-      
     });
+    console.log(newPlaylist)
+
     res.status(200).json(newPlaylist);
     res.redirect('/playlists');
 
   } catch (err) {
-    res.status(500).json(err);
+    res.status(400).json(err);
   }
 });
 
