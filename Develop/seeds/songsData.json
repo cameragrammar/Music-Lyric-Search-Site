@@ -1,34 +1,18 @@
 [
     {
         "name": "grey",
-        "album": "IT@hotmail.com",
-        "artist": "password12345",
-        "image": "arbitrary link",
-        "url": "dog idk",
         "playlist_id": 1
     },
     {
         "name": "Hans",
-        "album": "IT@hotmail.com",
-        "artist": "password12345",
-        "image": "arbitrary link",
-        "url": "dog idk",
         "playlist_id": 2
     },
     {
         "name": "Nick",
-        "album": "IT@hotmail.com",
-        "artist": "password12345",
-        "image": "arbitrary link",
-        "url": "dog idk",
         "playlist_id": 3
     },
     {
         "name": "Cameron",
-        "album": "IT@hotmail.com",
-        "artist": "password12345",
-        "image": "arbitrary link",
-        "url": "dog idk",
         "playlist_id": 4
     }
 ]
