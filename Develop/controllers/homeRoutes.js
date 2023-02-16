@@ -47,7 +47,6 @@ router.get('/', async (req, res) => {
       console.log(req.query.track);
       const response = await fetch(`http://ws.audioscrobbler.com/2.0/?method=track.getinfo&artist=${artist}&track=${req.query.track}&api_key=ec04df62f6ddb8b7af8a249b27cd35de&format=json`);
       const data = await response.json();
-      
       artist = data.track.artist.name;
       context.track = {
         name: data.track.name,
