@@ -114,17 +114,52 @@ router.get('/profile', withAuth, async (req, res) => {
     });
 
     const user = userData.get({ plain: true });
-
-    res.render('profile', {
+    const context = {
       ...user,
       logged_in: true
-    });
+    }
+
+    if (req.query.search) {
+      const response = await fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${req.query.search}&api_key=ec04df62f6ddb8b7af8a249b27cd35de&format=json`);
+      const data = await response.json();
+      const response2 = await fetch(`http://ws.audioscrobbler.com/2.0/?method=track.search&track=${req.query.search}&api_key=ec04df62f6ddb8b7af8a249b27cd35de&format=json`);
+      const data2 = await response2.json();
+      context.artists = data.results.artistmatches.artist.slice(0, 10);
+      context.tracks = data2.results.trackmatches.track.slice(0, 10);
+    }
+
+    let artist = req.query.artist;
+
+    if (req.query.track) {
+      console.log(req.query.track);
+      const response = await fetch(`http://ws.audioscrobbler.com/2.0/?method=track.getinfo&artist=${artist}&track=${req.query.track}&api_key=ec04df62f6ddb8b7af8a249b27cd35de&format=json`);
+      const data = await response.json();
+
+      artist = data.track.artist.name;
+      context.track = {
+        name: data.track.name,
+        playcount: data.track.playcount,
+        summary: data.track.wiki.summary,
+      }
+    }
+
+    if (artist) {
+      const response = await fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artist}&api_key=ec04df62f6ddb8b7af8a249b27cd35de&format=json`);
+      const data = await response.json();
+      //console.log(data.results);
+      context.artist = {
+        ...data.artist,
+        image: data.artist.image[0]["#text"]
+      }
+    }
+
+    res.render('profile', context);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-router.get('/profile', async (req, res) => {
+/* router.get('/profile', async (req, res) => {
   console.log('home login')
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
@@ -132,8 +167,8 @@ router.get('/profile', async (req, res) => {
     return;
   }
 
-  res.render('main');
+  res.render('profile');
 
-});
+}); */
 
 module.exports = router;
