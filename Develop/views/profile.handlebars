@@ -19,62 +19,62 @@
 </head>
 
 <body>
-    <div class="d-flex w-100">
-  <ul class="list-group">
-    <h2 class="list-group-item text-center font-weight-bold">Playlists</h2>
-    {{#each playlists}}
+  
+   <div class="d-flex w-100">
+    <ul class="list-group">
+      <h2 class="list-group-item text-center font-weight-bold">Playlists</h2>
+      {{#each playlists}}
       <button class="list-group-item artist-button" onclick="selectPlaylist('{{this.id}}')">
         <p class="inline text-left">{{this.name}}</p>
       </button>
-    {{/each}}
-  </ul>
-</div>
-
-<!-- add a new playlist -->
-<form id="add-form" class="playlist-form" action="/user/playlist" method="POST">
-  <div class="form-group">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" class="form-control" required>
+      {{/each}}
+    </ul>
   </div>
-  <button type="submit" class="btn btn-primary">Add Playlist</button>
-</form>
 
-<!-- update an existing playlist -->
-<form id="update-form" class="playlist-form" action="/user/playlist/:id" method="PUT">
-  <input type="hidden" id="selectedPlaylistId" name="id" value="">
-  <div class="form-group">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" class="form-control" required>
-  </div>
-  <button type="submit" class="btn btn-primary">Update Playlist</button>
-  <button type="button" class="btn btn-secondary" onclick="clearSelectedPlaylist()">Cancel</button>
-</form>
+  <!-- add a new playlist -->
+  <form id="add-form" class="playlist-form" action="/profile/playlists/" method="POST">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Playlist</button>
+  </form>
 
-<!-- script to select a playlist and show the update form -->
-<script>
-  function selectPlaylist(id) {
-    //const playlists = {{json playlists}};
-    const selectedPlaylist = playlists.find(p => p.id === id);
-    document.getElementById('name').value = selectedPlaylist.name;
-    document.getElementById('selectedPlaylistId').value = selectedPlaylist.id;
-    document.getElementById('add-form').style.display = 'none';
-    document.getElementById('update-form').style.display = 'block';
-  }
+ <!-- update an existing playlist -->
+  <form id="update-form" class="playlist-form" action="/profile/playlists/{{id}}" method="PUT">
+    <input type="hidden" id="selectedPlaylistId" name="id" value="">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Update Playlist</button>
+    <button type="button" class="btn btn-secondary" onclick="clearSelectedPlaylist()">Cancel</button>
+  </form>
 
-  function clearSelectedPlaylist() {
-    document.getElementById('name').value = '';
-    document.getElementById('selectedPlaylistId').value = '';
-    document.getElementById('update-form').style.display = 'none';
-    document.getElementById('add-form').style.display = 'block';
-  }
-</script>
-
-<!-- GET route for playlists -->
-{{#if playlists}}
+  <!-- script to select a playlist and show the update form -->
   <script>
-  //  const playlists = {{json playlists}}; 
+    function selectPlaylist(id) {
+      const selectedPlaylist = playlists.find(p => p.id === id);
+      document.getElementById('name').value = selectedPlaylist.name;
+      document.getElementById('selectedPlaylistId').value = selectedPlaylist.id;
+      document.getElementById('add-form').style.display = 'none';
+      document.getElementById('update-form').style.display = 'block';
+    }
+
+    function clearSelectedPlaylist() {
+      document.getElementById('name').value = '';
+      document.getElementById('selectedPlaylistId').value = '';
+      document.getElementById('update-form').style.display = 'none';
+      document.getElementById('add-form').style.display = 'block';
+    }
   </script>
-{{/if}}
+
+  <!-- GET route for playlists -->
+  {{#if playlists}}
+  <script>
+    const playlists = {{json playlists}};
+  </script>
+  {{/if}}
 
 
 <div class="col-lg-9 text-black">

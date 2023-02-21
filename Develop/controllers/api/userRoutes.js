@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { User, Playlist } = require('../../models');
 
 router.post('/', async (req, res) => {
-  console.log('user /')
+  console.log('user /');
   try {
     const userData = await User.create(req.body);
 
@@ -12,20 +12,19 @@ router.post('/', async (req, res) => {
 
       res.status(200).json(userData);
     });
-
   } catch (err) {
     res.status(400).json(err);
   }
 });
 
 router.post('/login', async (req, res) => {
-  console.log('user login')
+  console.log('user login');
   try {
     const userData = await User.findOne({ where: { email: req.body.email } });
 
     if (!userData) {
       res.render('login', {
-        message: 'Incorrect email or password, please try again'
+        message: 'Incorrect email or password, please try again',
       });
       return;
     }
@@ -34,7 +33,7 @@ router.post('/login', async (req, res) => {
 
     if (!validPassword) {
       res.render('login', {
-        message: 'Incorrect email or password, please try again'
+        message: 'Incorrect email or password, please try again',
       });
       return;
     }
@@ -45,7 +44,6 @@ router.post('/login', async (req, res) => {
 
       res.json({ user: userData, message: 'You are now logged in!' });
     });
-
   } catch (err) {
     res.status(500).json(err);
   }
@@ -56,13 +54,13 @@ router.get('/profile', async (req, res) => {
     if (!req.session.logged_in) {
       res.render('login', { message: 'Please log in to view your profile.' });
       return;
-    } 
+    }
     // if logged in, get user's playlists and render profile page
     const playlists = await Playlist.findAll({
-      where: { user_id: req.session.user.id},
-      raw: true
+      where: { user_id: req.session.user.id },
+      raw: true,
     });
-    res.render('profile', { playlists });
+    res.render('profile/playlists', { playlists });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -87,17 +85,20 @@ router.get('/profile', async (req, res) => {
 //   }
 // });
 
-router.post('/playlist', async (req, res) => {
+router.post('/profile/playlists', async (req, res) => {
   try {
     const newPlaylist = await Playlist.create({
       name: req.body.name,
-      user_id: req.session.user_id
-
-      
+      user_id: req.session.user_id,
     });
-    res.status(200).json(newPlaylist);
-    // res.redirect('/user/playlists');
 
+    const playlists = await Playlist.findAll({
+      where: { user_id: req.session.user_id },
+      raw: true,
+    });
+
+    // pass the logged_in variable to template data
+    res.render('profile', { playlists, logged_in: req.session.logged_in });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -106,30 +107,13 @@ router.post('/playlist', async (req, res) => {
 router.put('/playlist/:id', async (req, res) => {
   try {
     const playlistData = await Playlist.update(req.body, {
-      where: { id: req.params.id }
+      where: { id: req.params.id },
     });
 
     res.redirect('/playlists');
-
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-
-
-// router.post('/logout', (req, res) => {
-//   console.log('user logged out');
-//   if (req.session.logged_in) {
-//     req.session.destroy(() => {
-//       res.redirect('/');
-//     });
-//   } else {
-//     res.redirect('/');
-//   }
-// });
-
 module.exports = router;
-
-
-
