@@ -1,101 +1,60 @@
 <body>
 
-
-
-
-  <div class="container rounded p-3 shadow bg-white text-center container-rounded">
-    <h3 class="mb-3">Sign In</h3>
-    <form id="userform">
-      <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password">
-      </div>
-      <div class="d-grid gap-2 mb-3">
-        <button type="submit" class="btn btn-primary" onclick="register(event)"  >Sign In</button>
-        <button type="submit" class="btn btn-primary" onclick="register(event)"  >Register</button>
-        <button type="submit" onclick="signInCall(event)" class="btn btn-primary">SignIn</button>
-        <button type="submit" onclick="register(event)" class="btn btn-primary">Register</button>
-      </div>
-    </form>
-  </div>
-</body>
-
-</form>
-<ul class="list-group">
-  {{#each results as | artist | }}
-
-
-  </form>
-  <div class="d-flex w-100">
-    <ul class="list-group">
-      <h2 class="list-group-item text-center font-weight-bold">Artist</h2>
-      {{#each artists as | artist | }}
-
-      <button class="list-group-item artist-button">
-        <p class="inline text-left">{{artist.name}}</p>
-      </button>
-
-      {{/each}}
-    </ul>
-    <ul class="list-group">
-      <h2 class="list-group-item text-center font-weight-bold">Song Name</h2>
-      {{#each tracks as | track | }}
-      <button class="list-group-item track-button">
-        <p class="inline text-left" data-artist={{track.artist}}>{{track.name}}</p>
-      </button>
-
-      {{/each}}
-    </ul>
-  </div>
-
-
-
-
-
-  <div class="bs_hero-container bs_hero_layout_4">
-
-    <div class="container col-xl-10 col-xxl-10 px-4 py-5">
-      <div class="row align-items-center g-lg-5 py-5">
-        <div class="d-flex">
-          <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src={{artist.image}} alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">{{artist.name}}</h5>
-              <p class="card-text">{{artist.bio.summary}}</p>
-
-
+  <section class="section">
+    <div class="container">
+      <div class="box has-background-white has-shadow">
+        <h3 class="title is-3 has-text-centered mb-5">Sign In</h3>
+        <form id="userform">
+          <div class="field mb-5">
+            <label for="email" class="label">Email address</label>
+            <div class="control">
+              <input type="email" class="input" id="email" aria-describedby="emailHelp">
             </div>
           </div>
-          {{#if track}}
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">{{track.name}}</h5>
-              <p class="card-text">{{track.playcount}}</p>
-              <p class="card-text">{{track.summary}}</p>
-
-              <button type="button" class="btn btn-outline-secondary btn-lg px-5 text-black">Sign In</button>
-              <button type="button" class="btn btn-primary btn-lg px-4  ">Register</button>
-              </form>
+          <div class="field mb-5">
+            <label for="password" class="label">Password</label>
+            <div class="control">
+              <input type="password" class="input" id="password">
             </div>
+          </div>
+          <div class="field is-grouped is-grouped-centered">
+            <div class="control">
+              <button type="submit" onclick="signInCall(event)" class="button is-primary">Sign In</button>
+            </div>
+            <div class="control">
+              <button type="submit" onclick="register(event)" class="button is-link">Register</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      {{#if track}}
+      <div class="box has-background-white has-shadow">
+        <div class="columns">
+          <div class="column is-one-third">
+            <figure class="image">
+              <img src={{artist.image}} alt="artist image">
+            </figure>
+          </div>
+          <div class="column is-two-thirds">
+            <h2 class="title is-2">{{artist.name}}</h2>
+            <p>{{artist.bio.summary}}</p>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column">
+            <h2 class="title is-2">{{track.name}}</h2>
+            <p>{{track.playcount}}</p>
+            <p>{{track.summary}}</p>
           </div>
         </div>
       </div>
-
-
+      {{/if}}
     </div>
-  </div>
-  {{/if}}
-  </div>
-
-
-  </div>
-  {{/each}}
-  </div>
+  </section>
 
 
 
-  <script src="/js/login.js" type="text/javascript" defer></script>`
+</body>
+
+<script src="/js/login.js" type="text/javascript" defer></script>`

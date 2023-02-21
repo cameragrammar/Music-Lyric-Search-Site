@@ -51,26 +51,43 @@ router.post('/login', async (req, res) => {
   }
 });
 
-router.get('/playlists', async (req, res) => {
+router.get('/profile', async (req, res) => {
   try {
     if (!req.session.logged_in) {
-      res.redirect('/login');
+      res.render('login', { message: 'Please log in to view your profile.' });
       return;
-    }
-
+    } 
+    // if logged in, get user's playlists and render profile page
     const playlists = await Playlist.findAll({
-      where: { user_id: req.session.user_id },
+      where: { user_id: req.session.user.id},
       raw: true
     });
-
     res.render('profile', { playlists });
-
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-router.post('/playlists', async (req, res) => {
+// router.get('/playlists', async (req, res) => {
+//   try {
+//     if (!req.session.logged_in) {
+//       res.redirect('/login');
+//       return;
+//     }
+
+//     const playlists = await Playlist.findAll({
+//       where: { user_id: req.session.user_id },
+//       raw: true
+//     });
+
+//     res.render('profile', { playlists });
+
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
+
+router.post('/playlist', async (req, res) => {
   try {
     const newPlaylist = await Playlist.create({
       name: req.body.name,
@@ -79,14 +96,14 @@ router.post('/playlists', async (req, res) => {
       
     });
     res.status(200).json(newPlaylist);
-    res.redirect('/playlists');
+    // res.redirect('/user/playlists');
 
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-router.put('/playlists/:id', async (req, res) => {
+router.put('/playlist/:id', async (req, res) => {
   try {
     const playlistData = await Playlist.update(req.body, {
       where: { id: req.params.id }
@@ -99,15 +116,18 @@ router.put('/playlists/:id', async (req, res) => {
   }
 });
 
-router.get('/logout', (req, res) => {
-  if (req.session.logged_in) {
-    req.session.destroy(() => {
-      res.redirect('/login');
-    });
-  } else {
-    res.redirect('/login');
-  }
-});
+
+
+// router.post('/logout', (req, res) => {
+//   console.log('user logged out');
+//   if (req.session.logged_in) {
+//     req.session.destroy(() => {
+//       res.redirect('/');
+//     });
+//   } else {
+//     res.redirect('/');
+//   }
+// });
 
 module.exports = router;
 
