@@ -36,5 +36,3 @@ const trackButtons = document.getElementsByClassName("track-button");
 for (const button of trackButtons) {
     button.addEventListener("click", showTrack);
 }
-
-<script src="/js/homepage.js" type="text/javascript"></script>
