@@ -3,6 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const routes = require('./controllers');
+const Playlist = require('./models/playlist');
 
 // const helpers = require('./utils/auth');
 
@@ -18,7 +19,10 @@ const hbs = exphbs.create({
         json: function(context) {
             return JSON.stringify(context);
         }
-    }
+    },
+    partialsDir: [
+        path.join(__dirname, 'views/partials/')
+    ]
 });
 
 const sess = {
@@ -47,6 +51,24 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
+
+app.post('/profile/playlists', async (req, res) => {
+    try {
+      const newPlaylist = await Playlist.create({
+        name: req.body.name,
+        user_id: req.session.user_id
+      });
+  
+      const playlists = await Playlist.findAll({
+        where: { user_id: req.session.user_id },
+        raw: true
+      });
+  
+      res.render('profile', { playlists });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
 
 sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => console.log('Now listening'));

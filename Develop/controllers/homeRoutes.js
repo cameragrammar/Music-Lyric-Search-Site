@@ -159,16 +159,15 @@ router.get('/profile', withAuth, async (req, res) => {
   }
 });
 
-/* router.get('/profile', async (req, res) => {
-  console.log('home login')
-  // If the user is already logged in, redirect the request to another route
+router.post('/user/logout', (req, res) => {
   if (req.session.logged_in) {
-    res.redirect('/profile');
-    return;
+    req.session.destroy(() => {
+      res.redirect('/');
+    });
+  } else {
+    res.redirect('/');
   }
+});
 
-  res.render('profile');
-
-}); */
 
 module.exports = router;
