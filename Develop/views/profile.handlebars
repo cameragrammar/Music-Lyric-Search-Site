@@ -2,25 +2,28 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>Bootstrap layout</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <link rel="stylesheet" type="text/css" href="/css/index.css">
-    
-    
-    <!-- Bootstrap CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <title>Bootstrap layout</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
- 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
- 	
- 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
- 
+  <link rel="stylesheet" type="text/css" href="/css/index.css">
+
+
+  <!-- Bootstrap CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
 </head>
 
 <body>
-  
-   <div class="d-flex w-100">
+
+  <div class="d-flex w-100">
     <ul class="list-group">
       <h2 class="list-group-item text-center font-weight-bold">Playlists</h2>
       {{#each playlists}}
@@ -40,7 +43,7 @@
     <button type="submit" class="btn btn-primary">Add Playlist</button>
   </form>
 
- <!-- update an existing playlist -->
+  <!-- update an existing playlist -->
   <form id="update-form" class="playlist-form" action="/profile/playlists/{{id}}" method="PUT">
     <input type="hidden" id="selectedPlaylistId" name="id" value="">
     <div class="form-group">
@@ -53,6 +56,35 @@
 
   <!-- script to select a playlist and show the update form -->
   <script>
+    function addToPlaylist(trackName, trackArtist) {
+      // prompt the user to select a playlist
+      const selectedPlaylist = prompt("Please select a playlist:");
+
+      // send an AJAX request to the server to add the track to the selected playlist
+      fetch("/profile/playlists/" + selectedPlaylist + "?id=" + trackName + "&name=" + trackArtist, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          trackName: trackName,
+          trackArtist: trackArtist
+          
+        })
+      })
+        .then(response => {
+          if (response.ok) {
+            alert("Track added to playlist successfully!");
+          } else {
+            alert("Error adding track to playlist");
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          alert("Error adding track to playlist");
+        });
+    }
+
     function selectPlaylist(id) {
       const selectedPlaylist = playlists.find(p => p.id === id);
       document.getElementById('name').value = selectedPlaylist.name;
@@ -72,68 +104,70 @@
   <!-- GET route for playlists -->
   {{#if playlists}}
   <script>
-    const playlists = {{json playlists}};
+    const playlists = {{ json playlists }};
   </script>
   {{/if}}
 
 
-<div class="col-lg-9 text-black">
-                <p class="fs-4 bs_fw-300 text-black">Search for your Favorite Music Artists
-                </p>
+  <div class="col-lg-9 text-black">
+    <p class="fs-4 bs_fw-300 text-black">Search for your Favorite Music Artists
+    </p>
 
-                <form id="searchBar">
-                    <input type="text" name="searchArtist" class="form-control my-3"
-                        placeholder="Search for Artist or Song" aria-label="Username" aria-describedby="basic-addon1">
+    <form id="searchBar">
+      <input type="text" name="searchArtist" class="form-control my-3" placeholder="Search for Artist or Song"
+        aria-label="Username" aria-describedby="basic-addon1">
 
-                </form>
-                <ul class="list-group">
-                    {{#each results as | artist | }}
-                    
-                    <button class="list-group-item artist-button"><p class="inline text-left">{{artist.name}}</p></button>
+    </form>
+    <ul class="list-group">
+      {{#each results as | artist | }}
 
-                    {{/each}}
-                </ul>
-                <div class="d-flex w-100">
-                <ul class="list-group">
-                <h2 class="list-group-item text-center font-weight-bold">Artist</h2>
-                {{#each artists as | artist | }}
+      <button class="list-group-item artist-button">
+        <p class="inline text-left">{{artist.name}}</p>
+      </button>
 
-                <button class="list-group-item artist-button">
-                <p class="inline text-left">{{artist.name}}</p>
-                </button>
+      {{/each}}
+    </ul>
+    <div class="d-flex w-100">
+      <ul class="list-group">
+        <h2 class="list-group-item text-center font-weight-bold">Artist</h2>
+        {{#each artists as | artist | }}
 
-                {{/each}}
-                </ul>
-                <ul class="list-group">
-                <h2 class="list-group-item text-center font-weight-bold">Song Name</h2>
-                {{#each tracks as | track | }}
-                <button class="list-group-item track-button">
-                <p class="inline text-left" data-artist={{track.artist}}>{{track.name}}</p>
-                </button>
+        <button class="list-group-item artist-button">
+          <p class="inline text-left">{{artist.name}}</p>
+        </button>
 
-                {{/each}}
-                </ul>
-                </div>
-      <div class="row align-items-center g-lg-5 py-5">          
-        <div class="d-flex">
-          <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src={{artist.image}} alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">{{artist.name}}</h5>
-              <p class="card-text">{{artist.bio.summary}}</p>
-            </div>
+        {{/each}}
+      </ul>
+      <ul class="list-group">
+        <h2 class="list-group-item text-center font-weight-bold">Song Name</h2>
+        {{#each tracks as | track | }}
+        <button class="list-group-item track-button" data-id="{{track.id}}" onclick="addToPlaylist('{{track.id}}')">
+          <p class="inline text-left" data-artist={{track.artist}}>{{track.name}}</p>
+        </button>
+
+        {{/each}}
+      </ul>
+    </div>
+    <div class="row align-items-center g-lg-5 py-5">
+      <div class="d-flex">
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src={{artist.image}} alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{artist.name}}</h5>
+            <p class="card-text">{{artist.bio.summary}}</p>
           </div>
-          
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">{{track.name}}</h5>
-              <p class="card-text">{{track.playcount}}</p>
-              <p class="card-text">{{track.summary}}</p>
-            </div>
+        </div>
+
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">{{track.name}}</h5>
+            <p class="card-text">{{track.playcount}}</p>
+            <p class="card-text">{{track.summary}}</p>
           </div>
         </div>
       </div>
-</div>
+    </div>
+  </div>
 
 
 

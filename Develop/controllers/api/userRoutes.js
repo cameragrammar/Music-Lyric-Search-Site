@@ -55,35 +55,18 @@ router.get('/profile', async (req, res) => {
       res.render('login', { message: 'Please log in to view your profile.' });
       return;
     }
-    // if logged in, get user's playlists and render profile page
+
     const playlists = await Playlist.findAll({
-      where: { user_id: req.session.user.id },
-      raw: true,
+      where: { user_id: req.session.user_id },
+      raw: true
     });
-    res.render('profile/playlists', { playlists });
+
+    res.render('profile', { playlists });
+
   } catch (err) {
     res.status(500).json(err);
   }
 });
-
-// router.get('/playlists', async (req, res) => {
-//   try {
-//     if (!req.session.logged_in) {
-//       res.redirect('/login');
-//       return;
-//     }
-
-//     const playlists = await Playlist.findAll({
-//       where: { user_id: req.session.user_id },
-//       raw: true
-//     });
-
-//     res.render('profile', { playlists });
-
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
 
 router.post('/profile/playlists', async (req, res) => {
   try {
@@ -104,13 +87,14 @@ router.post('/profile/playlists', async (req, res) => {
   }
 });
 
-router.put('/playlist/:id', async (req, res) => {
+router.put('/profile/playlists/:id', async (req, res) => {
+  console.log("can I get a console log at least?")
   try {
     const playlistData = await Playlist.update(req.body, {
       where: { id: req.params.id },
     });
 
-    res.redirect('/playlists');
+    res.redirect('/profile');
   } catch (err) {
     res.status(500).json(err);
   }
