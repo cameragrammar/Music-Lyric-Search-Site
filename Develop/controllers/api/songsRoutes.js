@@ -50,4 +50,38 @@ router.delete(`/:id`, withAuth, async (req, res) => {
    }
 });
 
+// Add a song to a playlist
+router.put('/:playlistId', withAuth, async (req, res) => {
+    try {
+        const playlistId = req.params.playlistId;
+        const song = await Songs.findOne({ where: { id: req.params.id } });
+        if (!song) {
+            res.status(404).json({ message: 'Song not found' });
+            return;
+        }
+        song.playlist_id = req.body.playlist_id;
+        await song.save();
+        res.status(200).json(song);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+// Add a track to a playlist
+// router.put('songs/add-to-playlist', withAuth, async (req, res) => {
+//     try {
+//         const { trackName, trackArtist, playlist_id } = req.body;
+//         const song = await Songs.findOne({ where: { trackName, trackArtist } });
+//         if (!song) {
+//             res.status(404).json({ message: 'Song not found' });
+//             return;
+//         }
+//         song.playlist_id = playlist_id;
+//         await song.save();
+//         res.status(200).json(song);
+//     } catch (err) {
+//         res.status(500).json(err);
+//     }
+// });
+
 module.exports = router;
