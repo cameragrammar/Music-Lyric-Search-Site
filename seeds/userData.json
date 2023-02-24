@@ -1,0 +1,18 @@
+[
+    {
+        "email": "IT@hotmail.com",
+        "password": "password12345"
+    },
+    {
+        "email": "Corgi@gmail.com",
+        "password": "password12345"
+    },
+    {
+        "email": "techno@aol.com",
+        "password": "password12345"
+    },
+    {
+        "email": "login@icloud.com",
+        "password": "password12345"
+    }
+]
