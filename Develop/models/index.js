@@ -22,3 +22,4 @@ Songs.belongsTo(Playlist, {
 });
 
 module.exports = { User, Playlist, Songs };
+
